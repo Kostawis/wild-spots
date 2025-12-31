@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import supabase from "../supabase";
-import LoadingPage from "../pages/LoadingPage";
 import { Session } from "@supabase/supabase-js";
+import { createContext, useContext, useEffect, useState } from "react";
+import LoadingPage from "../pages/LoadingPage";
+import supabase from "../supabase";
 import { Tables } from "../supabase/database.types";
 
 type Profile = Tables<"profiles">;
