@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,117 +9,84 @@
   font-family: "Inter", sans-serif !important;
 }
 body {
-  background-color: #1c1c1c; /* Darker background, closer to Supabase style */
+  background-color: #1c1c1c;
   color: white;
-}
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10vh;
-}
-a {
-  text-decoration: none;
-}
-.header-text {
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-  padding: 0.5em 1em;
-  font-weight: bold;
-  background: none;
-  text-align: center;
-}
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #2a2a2a; /* Slightly lighter than body, but still dark */
-  padding: 2em 2em;
-  width: 100%;
-  max-width: 500px;
-  border-radius: 4px; /* Slightly rounded corners */
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.2);
-  border-top: 5px;
-  border-width: 10px 0px 0px 0px;
-  border-style: solid;
-  border-color: #3ecf8e; /* Supabase green */
-}
-#github-repo-link {
-  display: flex;
-  gap: 0.5em;
-  margin-top: 0;
-  align-items: center;
-  padding: 0.5em 1em;
-  font-weight: bold;
-  background: none;
-  cursor: pointer;
-  color: #3ecf8e; /* Supabase green */
-}
-#github-repo-link:hover {
-  background-color: rgba(
-    62,
-    207,
-    142,
-    0.1
-  ); /* Supabase green with low opacity */
-}
-input {
-  padding: 1rem;
-  border-radius: 4px;
-  outline: none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  background-color: #3a3a3a; /* Slightly lighter than container background */
-  border: 1px solid #4a4a4a;
-  font-size: 1rem;
-  color: white;
-  margin-top: 7px;
-  width: 300px;
-}
-button,
-a {
-  font-size: 16px;
-  padding: 1em;
-  background: none;
-  cursor: pointer;
-  color: white;
-  background: #229f65; /* Supabase green */
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  width: 300px;
-  text-align: center;
-  margin-top: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  font-weight: bold;
-  border: 1px solid #33b379; /* Supabase green */
 }
 
 a {
-  border: none;
+  text-decoration: none;
 }
-button:hover,
-a:hover {
-  background: #2ebd80; /* Slightly darker Supabase green for hover */
+
+.leaflet-control {
+  z-index: 0 !important;
 }
-.home-link {
-  margin-bottom: 1em;
+.leaflet-pane {
+  z-index: 0 !important;
 }
-.auth-link {
-  background: transparent;
-  color: #3ecf8e; /* Supabase green */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 0 !important;
 }
-.auth-link:hover {
-  background: transparent;
-  text-decoration: underline;
+
+.marker {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
 }
-#divider {
-  width: 70%;
-  height: 2px;
-  background-color: #3ecf8e; /* Supabase green */
-  margin: 1em 0;
-  border-radius: 100%;
+
+/* mała kropka w środku (czytelność) */
+.marker::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* STATUSY */
+
+.marker--legal {
+  background-color: #16a34a; /* green-600 */
+}
+
+.marker--semi-legal {
+  background-color: #f59e0b; /* amber-500 */
+}
+
+.marker--closed {
+  background-color: #dc2626; /* red-600 */
+}
+
+/* hover */
+.marker:hover {
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+/* ACTIVE */
+.marker--active {
+  box-shadow:
+    0 0 0 6px rgba(34, 197, 94, 0.25),
+    0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.cluster-icon {
+  background: #1f2937; /* dark gray */
+  color: white;
+  border-radius: 9999px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border: 2px solid #22c55e; /* zielony akcent */
 }

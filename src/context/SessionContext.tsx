@@ -2,11 +2,16 @@ import { createContext, useContext, useEffect, useState } from "react";
 import supabase from "../supabase";
 import LoadingPage from "../pages/LoadingPage";
 import { Session } from "@supabase/supabase-js";
+import { Tables } from "../supabase/database.types";
+
+type Profile = Tables<"profiles">;
 
 const SessionContext = createContext<{
   session: Session | null;
+  profile: Profile | null;
 }>({
   session: null,
+  profile: null,
 });
 
 export const useSession = () => {
@@ -20,24 +25,65 @@ export const useSession = () => {
 type Props = { children: React.ReactNode };
 export const SessionProvider = ({ children }: Props) => {
   const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
+  const [sessionLoading, setSessionLoading] = useState(true);
+  const [profileLoading, setProfileLoading] = useState(false);
+
+  // 1️⃣ LISTENER SESJI
   useEffect(() => {
-    const authStateListener = supabase.auth.onAuthStateChange(
-      async (_, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_, session) => {
         setSession(session);
-        setIsLoading(false);
-      }
+        setSessionLoading(false);
+      },
     );
 
     return () => {
-      authStateListener.data.subscription.unsubscribe();
+      authListener.subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, []);
+
+  // 2️⃣ POBIERANIE PROFILU (TYLKO GDY JEST SESSION)
+  useEffect(() => {
+    if (!session?.user?.id) {
+      setProfile(null);
+      setProfileLoading(false);
+      return;
+    }
+
+    setProfileLoading(true);
+
+    const fetchProfile = async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+
+      if (error) {
+        console.error("Profile fetch error:", error);
+        setProfile(null);
+      } else {
+        setProfile(data);
+      }
+
+      setProfileLoading(false);
+    };
+
+    fetchProfile();
+  }, [session?.user?.id]);
+
+  // 3️⃣ KLUCZOWA LOGIKA UI
+  const isLoading = sessionLoading || (session && profileLoading);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
-    <SessionContext.Provider value={{ session }}>
-      {isLoading ? <LoadingPage /> : children}
+    <SessionContext.Provider value={{ session, profile }}>
+      {children}
     </SessionContext.Provider>
   );
 };
