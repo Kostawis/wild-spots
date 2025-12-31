@@ -1,6 +1,5 @@
 import Heading from "../../components/text/Heading";
 import { useSession } from "../../context/sessionContext";
-import { useModal } from "../../modal/hooks/useModal";
 import { routes } from "../../router/routes";
 import { DashboardTail } from "../components/DashboardTail";
 

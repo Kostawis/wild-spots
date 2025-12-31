@@ -19,19 +19,19 @@ const AccountHeader: FC<AccountHeader> = (props) => {
     <>
       <div className="flex justify-between gap-x-3">
         <div className="flex gap-x-6">
-          <ProfileImage size="lg" firstName={firstName} />
+          <ProfileImage size="lg" username={firstName} />
           <div className="flex flex-col justify-center">
             <Heading.H1 noMargin>{firstName}</Heading.H1>
             <Paragraph>{email}</Paragraph>
           </div>
         </div>
         {socialMedia && (
-          <div className="flex items-center flex-nowrap gap-x-3">
+          <div className="flex flex-nowrap items-center gap-x-3">
             <SocialMedia socialMedia={socialMedia} />
           </div>
         )}
       </div>
-      <HorizontalSeparator className="mt-5 mb-4" />
+      <HorizontalSeparator className="mb-4 mt-5" />
     </>
   );
 };

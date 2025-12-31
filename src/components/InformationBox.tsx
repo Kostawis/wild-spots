@@ -4,12 +4,10 @@ import Paragraph from "./text/Paragraph";
 
 interface InformationBoxProps {
   title?: string;
-  type?: "info" | "warning" | "error";
   children: React.ReactNode;
 }
 
 export const InformationBox: FC<InformationBoxProps> = ({
-  type = "info",
   title,
   children,
 }) => {

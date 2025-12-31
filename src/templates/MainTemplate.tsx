@@ -1,14 +1,13 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-import { NavBar } from "../components/NavBar";
-import { PlaceDrawer } from "../components/molecules/PlaceDrawer";
 import Footer from "../components/Footer";
-import { useViewportHeight } from "../hooks/useViewportHeight";
+import { NavBar } from "../components/NavBar";
 import { Drawer } from "../drawer/components/Drawer";
+import { DrawerContent } from "../drawer/components/DrawerContent";
+import { useViewportHeight } from "../hooks/useViewportHeight";
+import { closeDrawer } from "../redux/drawer/drawerSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
-import { closeDrawer } from "../redux/drawer/drawerSlice";
-import { DrawerContent } from "../drawer/components/DrawerContent";
 
 const MainTemplate: FC = () => {
   const dispatch = useAppDispatch();

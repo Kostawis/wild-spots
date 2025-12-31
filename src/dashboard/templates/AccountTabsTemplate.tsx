@@ -1,21 +1,16 @@
 import { Outlet } from "react-router-dom";
-import AccountHeader from "../../components/molecules/AccountHeader";
-import Tabs from "../../components/molecules/Tabs";
-import { useSession } from "../../context/sessionContext";
-import { routes } from "../../router/routes";
-import Heading from "../../components/text/Heading";
 
-const TAB_ITEMS_MY_ACCOUNT = [
-  {
-    name: "Moje miejscówki",
-    route: routes.dashboard.main,
-  },
-  {
-    name: "Ustawienia",
-    route: routes.dashboard.settings.accountSettings,
-    hasNestedUrl: true,
-  },
-];
+// const TAB_ITEMS_MY_ACCOUNT = [
+//   {
+//     name: "Moje miejscówki",
+//     route: routes.dashboard.main,
+//   },
+//   {
+//     name: "Ustawienia",
+//     route: routes.dashboard.settings.accountSettings,
+//     hasNestedUrl: true,
+//   },
+// ];
 
 const AccountTabsTemplate = () => {
   // const { session, profile } = useSession();

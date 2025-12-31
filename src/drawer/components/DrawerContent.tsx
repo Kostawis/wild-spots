@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { PlaceForm } from "../../components/forms/PlaceForm";
 import Heading from "../../components/text/Heading";
+import { RootState } from "../../redux/store";
 
 export const DrawerContent = () => {
-  const { type, payload } = useSelector((s: RootState) => s.drawer);
+  const { type } = useSelector((s: RootState) => s.drawer);
 
   switch (type) {
     // case "place-details":
