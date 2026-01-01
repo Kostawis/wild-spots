@@ -28,7 +28,7 @@
     "downshift": "^9.0.13",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
-    "react": "^19.0.0",
+    "react": "^19.2.3",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.68.0",
     "react-icons": "^5.5.0",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@types/leaflet": "^1.9.21",
     "@types/lodash": "^4.17.21",
-    "@types/react": "^19.0.7",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
