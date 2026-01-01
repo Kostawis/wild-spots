@@ -1,9 +1,11 @@
 import { FC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { RegisterInput } from "../../auth.types";
-import TextInput from "../../../components/inputs/TextInput";
-import { formInputRules } from "../../../utils/formInputRules";
+import { Link } from "react-router-dom";
 import Button from "../../../components/Button";
+import TextInput from "../../../components/inputs/TextInput";
+import { routes } from "../../../router/routes";
+import { formInputRules } from "../../../utils/formInputRules";
+import { RegisterInput } from "../../auth.types";
 import { useAuth } from "../../hooks/useAuth";
 
 const RegisterForm: FC = () => {
@@ -123,7 +125,11 @@ const RegisterForm: FC = () => {
               htmlFor="policy"
               className="text-gray-500 dark:text-gray-300"
             >
-              Akceptuję warunki polityki prywatności*
+              Akceptuję warunki{" "}
+              <Link to={routes.privacyPolicy} className="underline">
+                polityki prywatności
+              </Link>
+              *
             </label>
           </div>
         </div>

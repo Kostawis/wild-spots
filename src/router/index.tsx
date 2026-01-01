@@ -12,6 +12,7 @@ import AccountTemplate from "../dashboard/templates/AccountTemplate.tsx";
 import SettingsTemplate from "../dashboard/templates/SettingsTemplate.tsx";
 import NotFoundPage from "../pages/404Page.tsx";
 import HomePage from "../pages/HomePage.tsx";
+import { PrivacyPolicyPage } from "../pages/PrivacyPolicyPage.tsx";
 import Providers from "../Providers.tsx";
 import { AuthTemplate } from "../templates/AuthTemplate.tsx";
 import FullPageInfoTemplate from "../templates/FullPageInfoTemplate.tsx";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
               {
                 path: routes.home,
                 element: <HomePage />,
+              },
+              {
+                path: routes.privacyPolicy,
+                element: <PrivacyPolicyPage />,
               },
               {
                 element: <FullPageInfoTemplate />,

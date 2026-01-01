@@ -15,5 +15,6 @@ export const routes = {
       pilotInformations: "/dashboard/settings/pilot-informations",
     },
   },
+  privacyPolicy: "/polityka-prywatności",
   empty: "*",
 };

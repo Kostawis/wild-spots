@@ -5,7 +5,7 @@ export type DrawerType = "place-details" | "create-place" | "edit-place" | null;
 type DrawerState = {
   open: boolean;
   type: DrawerType;
-  payload?: any;
+  payload?: unknown;
 };
 
 const initialState: DrawerState = {
