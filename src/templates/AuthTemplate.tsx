@@ -1,10 +1,16 @@
+import { includes } from "lodash";
 import { FC } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSession } from "../context/sessionContext";
+import { routes } from "../router/routes";
+
+const allowedSessionRoutes = [routes.resetPassword];
 
 export const AuthTemplate: FC = () => {
   const { session } = useSession();
-  if (session) return <Navigate to="/" />;
+  const { pathname } = useLocation();
+  if (session && !includes(allowedSessionRoutes, pathname))
+    return <Navigate to="/" />;
 
   return (
     <section className="h-full-content w-screen bg-gray-50 dark:bg-gray-900">

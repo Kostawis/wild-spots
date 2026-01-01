@@ -29,8 +29,8 @@ a {
 }
 
 .marker {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   position: relative;
   border: 2px solid white;
@@ -41,8 +41,8 @@ a {
 /* mała kropka w środku (czytelność) */
 .marker::after {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: white;
   border-radius: 50%;
   position: absolute;

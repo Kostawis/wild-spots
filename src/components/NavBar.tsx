@@ -12,14 +12,14 @@ export const NavBar = () => {
   return (
     <nav className="z-10 shrink-0 border-b border-gray-200 bg-white px-2 py-2.5 sm:px-4 dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center justify-between">
-        <div className="flex items-center flex-nowrap">
+        <div className="flex flex-nowrap items-center">
           <Link to={routes.home}>
-            <span className="text-xl font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-              Dirt Base
+            <span className="whitespace-nowrap text-xl font-semibold text-gray-900 dark:text-white">
+              WildSpots
             </span>
           </Link>
         </div>
-        <div className="flex items-center justify-center w-full space-x-2">
+        <div className="flex w-full items-center justify-center space-x-2">
           {/* <CustomNavLink to={routes.home}>Home</CustomNavLink> */}
         </div>
 

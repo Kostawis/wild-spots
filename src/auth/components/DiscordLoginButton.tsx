@@ -1,11 +1,15 @@
+import Button from "../../components/Button";
+
 export const DiscordLoginButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <button
+    <Button
       onClick={onClick}
-      className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-800 shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+      color="transparent"
+      fullWidth
+      className="h-12 text-base font-semibold"
     >
       <svg
-        className="mr-2 h-6 w-6"
+        className="mr-4 h-8 w-8"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width="800px"
@@ -24,6 +28,6 @@ export const DiscordLoginButton = ({ onClick }: { onClick: () => void }) => {
       </svg>
 
       <span>Zaloguj przez Discorda</span>
-    </button>
+    </Button>
   );
 };

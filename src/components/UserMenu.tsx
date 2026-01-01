@@ -34,7 +34,7 @@ export const UserMenu = () => {
       {/* AVATAR */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="transition rounded-full hover:ring-2 hover:ring-red-500"
+        className="rounded-full transition hover:ring-2 hover:ring-red-500"
       >
         <ProfileImage
           username={profile?.username}
@@ -44,10 +44,10 @@ export const UserMenu = () => {
 
       {/* DROPDOWN */}
       {open && (
-        <div className="border-gray-2000 bg- gray-50 absolute right-0 top-10 z-[10000] mt-2 w-48 rounded-lg border shadow-xl">
-          <div className="px-4 py-3 border-b border-gray-700">
+        <div className="border-gray-2000 absolute right-0 top-10 z-[10000] mt-2 w-48 rounded-lg border bg-gray-50 shadow-xl">
+          <div className="border-b border-gray-700 px-4 py-3">
             <Heading.H4 noMargin>{username || "User"}</Heading.H4>
-            {email && <p className="text-xs text-gray-400 truncate">{email}</p>}
+            {email && <p className="truncate text-sm text-gray-400">{email}</p>}
           </div>
 
           <button
@@ -55,7 +55,7 @@ export const UserMenu = () => {
               setOpen(false);
               navigate(routes.dashboard.main);
             }}
-            className="w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-300"
+            className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-300"
           >
             Mój profil
           </button>
@@ -65,7 +65,7 @@ export const UserMenu = () => {
               logout();
               setOpen(false);
             }}
-            className="w-full px-4 py-2 text-sm text-left text-red-800 hover:bg-gray-300"
+            className="w-full px-4 py-2 text-left text-sm text-red-800 hover:bg-gray-300"
           >
             Wyloguj
           </button>

@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { LoginInput } from "../../auth.types";
-import { formInputRules } from "../../../utils/formInputRules";
-import TextInput from "../../../components/inputs/TextInput";
+import { Link } from "react-router-dom";
 import Button from "../../../components/Button";
+import TextInput from "../../../components/inputs/TextInput";
+import { routes } from "../../../router/routes";
+import { formInputRules } from "../../../utils/formInputRules";
+import { LoginInput } from "../../auth.types";
+import { useAuth } from "../../hooks/useAuth";
 
 const LoginForm: FC = () => {
-  const { state } = useLocation();
   const { login, loading } = useAuth();
 
   const {
@@ -17,7 +17,7 @@ const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginInput>({
     defaultValues: {
-      email: state?.email || "",
+      email: "",
       password: "",
     },
   });
@@ -27,7 +27,7 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
         rules={{
@@ -52,13 +52,19 @@ const LoginForm: FC = () => {
           <TextInput
             type="password"
             label="Twoje hasło"
-            error={errors.password?.message || errors.root?.message}
             onChange={onChange}
             value={value}
             placeholder="Hasło"
+            className="pb-1"
           />
         )}
       />
+      <Link
+        className="mb-4 text-sm text-gray-800 underline"
+        to={routes.forgotPassword}
+      >
+        Nie pamiętam hasła
+      </Link>
       <Button type="submit" fullWidth isLoading={loading}>
         Zaloguj się
       </Button>

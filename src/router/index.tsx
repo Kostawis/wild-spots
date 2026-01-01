@@ -1,22 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage.tsx";
+import AuthenticationCallbackPage from "../auth/pages/AuthenticationCallbackPage.tsx";
+import { ForgotPasswordPage } from "../auth/pages/ForgotPasswordPage.tsx";
+import { InformationAuthPage } from "../auth/pages/InformationAuthPage.tsx";
 import LoginPage from "../auth/pages/LoginPage.tsx";
 import RegisterPage from "../auth/pages/RegisterPage.tsx";
-import NotFoundPage from "../pages/404Page.tsx";
-import { AuthTemplate } from "../templates/AuthTemplate.tsx";
-import Providers from "../Providers.tsx";
-import MainTemplate from "../templates/MainTemplate.tsx";
-import HomeTemplate from "../templates/HomeTemplate.tsx";
-import { routes } from "./routes.ts";
-import AuthenticationCallbackPage from "../auth/pages/AuthenticationCallbackPage.tsx";
-import FullPageInfoTemplate from "../templates/FullPageInfoTemplate.tsx";
-import { SuccessRegisterPage } from "../auth/pages/SuccessRegisterPage.tsx";
+import { ResetPasswordPage } from "../auth/pages/ResetPasswordPage.tsx";
 import PrivateRoute from "../auth/templates/PrivateRoute.tsx";
-import AccountTemplate from "../dashboard/templates/AccountTemplate.tsx";
-import AccountTabsTemplate from "../dashboard/templates/AccountTabsTemplate.tsx";
-import SettingsTemplate from "../dashboard/templates/SettingsTemplate.tsx";
 import DashboardGeneralPage from "../dashboard/pages/DashboardGeneralPage.tsx";
 import { DashboardPlacesPage } from "../dashboard/pages/DashboardPlacesPage.tsx";
+import AccountTabsTemplate from "../dashboard/templates/AccountTabsTemplate.tsx";
+import AccountTemplate from "../dashboard/templates/AccountTemplate.tsx";
+import SettingsTemplate from "../dashboard/templates/SettingsTemplate.tsx";
+import NotFoundPage from "../pages/404Page.tsx";
+import HomePage from "../pages/HomePage.tsx";
+import Providers from "../Providers.tsx";
+import { AuthTemplate } from "../templates/AuthTemplate.tsx";
+import FullPageInfoTemplate from "../templates/FullPageInfoTemplate.tsx";
+import HomeTemplate from "../templates/HomeTemplate.tsx";
+import MainTemplate from "../templates/MainTemplate.tsx";
+import { routes } from "./routes.ts";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,13 @@ const router = createBrowserRouter([
                 children: [
                   {
                     path: routes.registerSuccess,
-                    element: <SuccessRegisterPage caseType="processing" />,
+                    element: <InformationAuthPage caseType="registerSuccess" />,
+                  },
+                  {
+                    path: routes.forgotPasswordSuccess,
+                    element: (
+                      <InformationAuthPage caseType="forgotPasswordSuccess" />
+                    ),
                   },
                 ],
               },
@@ -63,6 +71,14 @@ const router = createBrowserRouter([
               {
                 path: routes.register,
                 element: <RegisterPage />,
+              },
+              {
+                path: routes.forgotPassword,
+                element: <ForgotPasswordPage />,
+              },
+              {
+                path: routes.resetPassword,
+                element: <ResetPasswordPage />,
               },
             ],
           },

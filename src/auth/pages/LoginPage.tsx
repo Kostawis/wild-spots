@@ -1,11 +1,11 @@
-import LoginForm from "../components/forms/LoginForm";
-import FormHeader from "../components/FormHeader";
+import { Link } from "react-router-dom";
 import HorizontalSeparator from "../../components/HorizontalSeparator";
 import Paragraph from "../../components/text/Paragraph";
-import { Link } from "react-router-dom";
-import supabase from "../../supabase";
 import { routes } from "../../router/routes.ts";
+import supabase from "../../supabase";
 import { DiscordLoginButton } from "../components/DiscordLoginButton.tsx";
+import FormHeader from "../components/FormHeader";
+import LoginForm from "../components/forms/LoginForm";
 
 const LoginPage = () => {
   const discordHandler = async () => {
@@ -25,7 +25,12 @@ const LoginPage = () => {
   return (
     <main>
       <FormHeader>Zaloguj się</FormHeader>
-      <HorizontalSeparator className="mb-4" />
+      <HorizontalSeparator className="mb-6" />
+
+      <DiscordLoginButton onClick={discordHandler} />
+
+      <HorizontalSeparator className="my-6">lub</HorizontalSeparator>
+
       <LoginForm />
       <Paragraph className="mt-4">
         Nie masz jeszcze konta?{" "}
@@ -33,10 +38,6 @@ const LoginPage = () => {
           Zarejestruj się
         </Link>
       </Paragraph>
-
-      <HorizontalSeparator className="my-6">lub</HorizontalSeparator>
-
-      <DiscordLoginButton onClick={discordHandler} />
     </main>
   );
 };

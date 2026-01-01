@@ -1,11 +1,16 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAppDispatch } from "../../redux/hooks";
 import { fetchPlaces } from "../../redux/places/thunks/fetchPlaces";
-import supabase from "../../supabase";
-import { LoginInput, RegisterInput } from "../auth.types";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { routes } from "../../router/routes";
+import supabase from "../../supabase";
+import {
+  LoginInput,
+  RegisterInput,
+  ResetPassword,
+  ResetPasswordRequest,
+} from "../auth.types";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -64,5 +69,46 @@ export const useAuth = () => {
     }
   };
 
-  return { login, logout, register, loading };
+  const resetPasswordRequest = async (formValues: ResetPasswordRequest) => {
+    setloading(true);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      formValues.email,
+      {
+        redirectTo: `${window.location.origin}${routes.resetPassword}`,
+      },
+    );
+
+    setloading(false);
+
+    if (error) {
+      toast.error(error.message);
+      console.error(error);
+    } else {
+      toast.success("Email do zmiany hasła został wysłany na skrzynkę!");
+      navigate(routes.forgotPasswordSuccess);
+    }
+  };
+
+  const resetPassword = async (formValues: ResetPassword) => {
+    const { error } = await supabase.auth.updateUser({
+      password: formValues.password,
+    });
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Hasło zmienione pomyślnie!");
+      setTimeout(() => navigate(routes.login), 2000);
+    }
+  };
+
+  return {
+    login,
+    logout,
+    register,
+    resetPasswordRequest,
+    resetPassword,
+    loading,
+  };
 };

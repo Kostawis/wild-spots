@@ -7,10 +7,10 @@ export const sharePlace = async (placeId: number, placeName?: string) => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: placeName ?? "Miejscówka DirtBase",
+        title: placeName ?? "Miejscówka na WildSpots",
         text: placeName
           ? `Sprawdź tą miejscówkę: ${placeName}`
-          : "Sprawdź tą miejscówkę na DirtBase",
+          : "Sprawdź tą miejscówkę na WildSpots",
         url,
       });
       return;
