@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSession } from "../../../context/sessionContext";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   selectAllPlaces,
@@ -7,7 +8,6 @@ import {
   selectPlacesStatus,
 } from "../placesSelectors";
 import { fetchPlaces } from "../thunks/fetchPlaces";
-import { useSession } from "../../../context/sessionContext";
 
 export const usePlaces = () => {
   const { session } = useSession();
@@ -16,13 +16,13 @@ export const usePlaces = () => {
   const places = useAppSelector(selectAllPlaces);
   const myPlaces = useAppSelector(selectMyPlaces(session?.user.id));
   const placesByStatus = useAppSelector(selectPlacesByStatus);
-  const status = useAppSelector(selectPlacesStatus);
+  const { fetchStatus } = useAppSelector(selectPlacesStatus);
 
   useEffect(() => {
-    if (status === "idle") {
+    if (fetchStatus === "idle") {
       dispatch(fetchPlaces());
     }
-  }, [status, dispatch]);
+  }, [fetchStatus, dispatch]);
 
-  return { places, myPlaces, placesByStatus, status };
+  return { places, myPlaces, placesByStatus, fetchStatus };
 };

@@ -30,8 +30,8 @@ export const PlaceDrawer = () => {
     >
       <Drawer.Overlay className="fixed inset-0 bg-black/40" />
       <Drawer.Portal>
-        <Drawer.Content className="fixed bottom-0 left-0 right-0 mx-[-1px] flex h-full max-h-[90%] flex-col rounded-t-xl bg-white py-4">
-          <div className="flex-shrink-0 w-12 h-1 mx-auto mb-3 bg-gray-300 rounded" />
+        <Drawer.Content className="fixed inset-x-0 bottom-0 -mx-px flex h-full max-h-[90%] flex-col rounded-t-xl bg-white py-4">
+          <div className="mx-auto mb-3 h-1 w-12 shrink-0 rounded bg-gray-300" />
           <PlaceDetails place={currentPlace} isLastSnap={isLastSnap} />
         </Drawer.Content>
       </Drawer.Portal>

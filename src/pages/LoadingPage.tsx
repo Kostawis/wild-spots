@@ -1,8 +1,8 @@
 const LoadingPage = () => {
   return (
     <main>
-      <section className="main-container">
-        <h1 className="header-text">Loading...</h1>
+      <section>
+        <p>Loading...</p>
       </section>
     </main>
   );

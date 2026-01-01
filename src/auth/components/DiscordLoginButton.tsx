@@ -9,7 +9,7 @@ export const DiscordLoginButton = ({ onClick }: { onClick: () => void }) => {
       className="h-12 text-base font-semibold"
     >
       <svg
-        className="mr-4 h-8 w-8"
+        className="mr-4 size-8"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width="800px"

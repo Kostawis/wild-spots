@@ -16,7 +16,7 @@ const MainTemplate: FC = () => {
   useViewportHeight();
 
   return (
-    <div className="debug-screens flex h-[calc(var(--vh)*100)] flex-col">
+    <div className="flex h-[calc(var(--vh)*100)] flex-col">
       <NavBar />
       <Outlet />
       <Footer />

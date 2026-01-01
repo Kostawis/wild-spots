@@ -8,7 +8,7 @@ export const ResizeMap = ({ trigger }: { trigger: any }) => {
     requestAnimationFrame(() => {
       map.invalidateSize();
     });
-  }, [trigger]);
+  }, [trigger, map]);
 
   return null;
 };

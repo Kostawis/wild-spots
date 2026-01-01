@@ -98,7 +98,7 @@ const Button = ({
         <svg
           aria-hidden="true"
           role="status"
-          className="inline h-5 w-5 animate-spin text-gray-200 dark:text-gray-600"
+          className="inline size-5 animate-spin text-gray-200 dark:text-gray-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

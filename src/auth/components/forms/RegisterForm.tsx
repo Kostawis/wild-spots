@@ -115,7 +115,7 @@ const RegisterForm: FC = () => {
               id="policy"
               aria-describedby="policy"
               type="checkbox"
-              className="h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary"
+              className="size-4 rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary"
             />
           </div>
           <div className="ml-3 text-sm">

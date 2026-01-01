@@ -8,7 +8,6 @@ import { ResetPasswordPage } from "../auth/pages/ResetPasswordPage.tsx";
 import PrivateRoute from "../auth/templates/PrivateRoute.tsx";
 import DashboardGeneralPage from "../dashboard/pages/DashboardGeneralPage.tsx";
 import { DashboardPlacesPage } from "../dashboard/pages/DashboardPlacesPage.tsx";
-import AccountTabsTemplate from "../dashboard/templates/AccountTabsTemplate.tsx";
 import AccountTemplate from "../dashboard/templates/AccountTemplate.tsx";
 import SettingsTemplate from "../dashboard/templates/SettingsTemplate.tsx";
 import NotFoundPage from "../pages/404Page.tsx";
@@ -96,33 +95,28 @@ const router = createBrowserRouter([
                 element: <AccountTemplate />,
                 children: [
                   {
-                    element: <AccountTabsTemplate />,
+                    path: routes.dashboard.main,
+                    element: <DashboardGeneralPage />,
+                  },
+                  {
+                    path: routes.dashboard.places,
+                    element: <DashboardPlacesPage />,
+                  },
+                  // {
+                  //   path: routes.account.technicalBackground,
+                  //   element: <AccountTechnicalBackgroundPage />,
+                  // },
+                  {
+                    element: <SettingsTemplate />,
                     children: [
-                      {
-                        path: routes.dashboard.main,
-                        element: <DashboardGeneralPage />,
-                      },
-                      {
-                        path: routes.dashboard.places,
-                        element: <DashboardPlacesPage />,
-                      },
                       // {
-                      //   path: routes.account.technicalBackground,
-                      //   element: <AccountTechnicalBackgroundPage />,
+                      //   path: routes.dashboard.settings.accountSettings,
+                      //   element: <AccountSettingsPage />,
                       // },
-                      {
-                        element: <SettingsTemplate />,
-                        children: [
-                          // {
-                          //   path: routes.dashboard.settings.accountSettings,
-                          //   element: <AccountSettingsPage />,
-                          // },
-                          // {
-                          //   path: routes.account.settings.pilotInformations,
-                          //   element: <PilotInformationsSettingsPage />,
-                          // },
-                        ],
-                      },
+                      // {
+                      //   path: routes.account.settings.pilotInformations,
+                      //   element: <PilotInformationsSettingsPage />,
+                      // },
                     ],
                   },
                 ],
@@ -133,7 +127,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: "*",
     element: <NotFoundPage />,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import supabase from "../../supabase";
 import { routes } from "../../router/routes";
+import supabase from "../../supabase";
 
 const AuthenticationCallbackPage = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const AuthenticationCallbackPage = () => {
     };
 
     handleAuth();
-  }, []);
+  }, [navigate]);
 
   return <p>Logging in...</p>;
 };

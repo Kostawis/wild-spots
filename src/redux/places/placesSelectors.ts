@@ -2,8 +2,14 @@ import { createSelector } from "@reduxjs/toolkit";
 import { Enums } from "../../supabase/database.types";
 import { RootState } from "../store";
 
-export const selectPlacesStatus = (state: RootState) =>
-  state.places.fetchStatus;
+export const selectPlacesStatus = (state: RootState) => ({
+  fetchStatus: state.places.fetchStatus,
+  createStatus: state.places.createStatus,
+  deleteStatus: state.places.deleteStatus,
+});
+
+export const selectDeletingId = (state: RootState) => state.places.deletingId;
+
 export const selectAllPlaces = (state: RootState) => state.places;
 
 export const selectMyPlaces = (userId: string | undefined) =>

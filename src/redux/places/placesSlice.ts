@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Tables } from "../../supabase/database.types";
-import { fetchPlaces } from "./thunks/fetchPlaces";
 import { addPlace } from "./thunks/addPlace";
-import { updatePlace } from "./thunks/updatePlace";
 import { deletePlace } from "./thunks/deletePlace";
+import { fetchPlaces } from "./thunks/fetchPlaces";
+import { updatePlace } from "./thunks/updatePlace";
 
 type AuthorProfile = Pick<Tables<"profiles">, "id" | "username" | "avatar_url">;
 
@@ -15,6 +15,8 @@ interface PlacesState {
   items: PlaceWithAuthor[];
   fetchStatus: "idle" | "loading" | "succeeded" | "failed";
   createStatus: "idle" | "loading" | "succeeded" | "failed";
+  deleteStatus: "idle" | "loading" | "succeeded" | "failed";
+  deletingId: number | null;
   error: string | null;
 
   // UI state
@@ -25,6 +27,8 @@ const initialState: PlacesState = {
   items: [],
   fetchStatus: "idle",
   createStatus: "idle",
+  deleteStatus: "idle",
+  deletingId: null,
   error: null,
 
   // UI state
@@ -86,7 +90,19 @@ const placesSlice = createSlice({
 
       // DELETE
       .addCase(deletePlace.fulfilled, (state, action) => {
+        state.deleteStatus = "succeeded";
         state.items = state.items.filter((p) => p.id !== action.payload);
+        state.deletingId = null;
+      })
+      .addCase(deletePlace.pending, (state, action) => {
+        state.deleteStatus = "loading";
+        state.deletingId = action.meta.arg;
+        state.error = null;
+      })
+      .addCase(deletePlace.rejected, (state, action) => {
+        state.deleteStatus = "failed";
+        state.deletingId = null;
+        state.error = action.payload ?? "Delete failed";
       });
   },
 });

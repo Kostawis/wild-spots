@@ -1,22 +1,22 @@
+import { find } from "lodash";
 import { FC, useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useModal } from "../../modal/hooks/useModal";
-import TextareaInput from "../inputs/TextareaInput";
-import Button from "../Button";
-import { formInputRules } from "../../utils/formInputRules";
-import TextInput from "../inputs/TextInput";
-import { Enums } from "../../supabase/database.types";
-import Select, { SelectInputItems } from "../inputs/SelectInput";
-import { find } from "lodash";
-import { InformationBox } from "../InformationBox";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import { useWindowWidthState } from "../../context/windowWidthContext";
+import { useModal } from "../../modal/hooks/useModal";
+import { clearCoordinates } from "../../redux/coordinates/placeCoordinatesSlice";
+import { closeDrawer } from "../../redux/drawer/drawerSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addPlace } from "../../redux/places/thunks/addPlace";
-import { toast } from "sonner";
-import { clearCoordinates } from "../../redux/coordinates/placeCoordinatesSlice";
 import { routes } from "../../router/routes";
-import { useWindowWidthState } from "../../context/windowWidthContext";
-import { closeDrawer } from "../../redux/drawer/drawerSlice";
+import { Enums } from "../../supabase/database.types";
+import { formInputRules } from "../../utils/formInputRules";
+import Button from "../Button";
+import { InformationBox } from "../InformationBox";
+import Select, { SelectInputItems } from "../inputs/SelectInput";
+import TextareaInput from "../inputs/TextareaInput";
+import TextInput from "../inputs/TextInput";
 
 const CATEGORY_TYPE_SELECT_ITEMS: SelectInputItems[] = [
   {
@@ -108,6 +108,7 @@ export const PlaceForm: FC = () => {
 
       dispatch(clearCoordinates());
       closeMainModal();
+      dispatch(closeDrawer());
       toast.success("Miejscówka dodana pomyślnie! Oczekuje na zatwierdzenie.");
     } catch (error) {
       toast.error("Wystąpił błąd podczas dodawania miejscówki.");
@@ -117,7 +118,7 @@ export const PlaceForm: FC = () => {
 
   useEffect(() => {
     setMainModalActions({ onClose });
-  }, [onClose]);
+  }, [onClose, setMainModalActions]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

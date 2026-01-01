@@ -40,7 +40,7 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
           <FontAwesomeIcon icon={faShareNodes} />
         </Button>
       </div>
-      <div className="flex mt-1 -ml-1 gap-x-1">
+      <div className="-ml-1 mt-1 flex gap-x-1">
         <Tag variant="category" value={place.category} />
         {place.terrain_types.map((type) => (
           <Tag key={type} variant="terrain" value={type} />
@@ -49,7 +49,7 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
 
       <HorizontalSeparator className="my-3" />
 
-      <div className="flex items-center justify-between mb-2">
+      <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-x-2">
           <ProfileImage
             size="xs"

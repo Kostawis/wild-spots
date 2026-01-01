@@ -13,7 +13,7 @@ const Tabs: FC<TabsProps> = (props) => {
   const { tabs } = props;
 
   return (
-    <ul className="flex mb-6 list-none border-b border-gray-700 w-max gap-x-3">
+    <ul className="mb-6 flex w-max list-none gap-x-3 border-b border-gray-700">
       {tabs.map(({ route, name, hasNestedUrl }) => {
         return (
           <TabItem

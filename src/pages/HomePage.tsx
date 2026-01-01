@@ -26,8 +26,6 @@ const HomePage = () => {
     zoom: 7,
   });
 
-  console.log("Rendering HomePage", placesByStatus);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onPlaceClick = (placeId: number) => {
@@ -52,7 +50,7 @@ const HomePage = () => {
             center={[mapState.lat, mapState.lng]}
             zoom={mapState.zoom}
             scrollWheelZoom={true}
-            className="w-full h-full"
+            className="size-full"
           >
             <ResizeMap trigger={currentPlace} />
             <MapEvents onChange={setMapState} />
