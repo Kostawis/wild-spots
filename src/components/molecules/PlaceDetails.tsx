@@ -29,7 +29,7 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
       })}
     >
       <div className="flex justify-between">
-        <Heading.H2 noMargin className="line-clamp-1" title={place.name}>
+        <Heading.H2 noMargin className="line-clamp-2" title={place.name}>
           {place.name}
         </Heading.H2>
         <Button
