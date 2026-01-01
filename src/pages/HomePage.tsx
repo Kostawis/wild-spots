@@ -45,7 +45,7 @@ const HomePage = () => {
   return (
     <>
       <div className="flex flex-1">
-        <section className="flex-1">
+        <section className="flex-1" data-tour="map">
           <MapContainer
             center={[mapState.lat, mapState.lng]}
             zoom={mapState.zoom}
@@ -58,7 +58,7 @@ const HomePage = () => {
             <FlyToPlace
               lat={currentPlace?.lat || mapState.lat}
               lng={currentPlace?.lng || mapState.lng}
-              zoom={currentPlace ? 12 : mapState.zoom}
+              zoom={currentPlace ? 16 : mapState.zoom}
             />
 
             <CreateNewPlace />
@@ -73,7 +73,7 @@ const HomePage = () => {
                   <MarkerClusterGroup
                     key={category}
                     chunkedLoading
-                    maxClusterRadius={50}
+                    maxClusterRadius={80}
                     spiderfyOnMaxZoom
                     showCoverageOnHover={false}
                     iconCreateFunction={createClusterCustomIcon}

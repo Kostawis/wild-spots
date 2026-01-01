@@ -10,7 +10,7 @@ export const NavBar = () => {
   const isLoggedIn = !!session?.user;
 
   return (
-    <nav className="z-10 shrink-0 border-b border-gray-200 bg-white px-2 py-2.5 sm:px-4 dark:border-gray-700 dark:bg-gray-900">
+    <nav className="z-20 shrink-0 border-b border-gray-200 bg-white px-2 py-2.5 sm:px-4 dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center justify-between">
         <div className="flex flex-nowrap items-center">
           <Link to={routes.home}>

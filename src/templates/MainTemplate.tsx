@@ -27,6 +27,7 @@ const MainTemplate: FC = () => {
       >
         <DrawerContent />
       </Drawer>
+      {/* <AppTour /> */}
     </div>
   );
 };

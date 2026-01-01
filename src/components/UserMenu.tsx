@@ -30,7 +30,7 @@ export const UserMenu = () => {
   }, []);
 
   return (
-    <div ref={ref} className="relative flex">
+    <div ref={ref} className="relative flex" data-tour="user-menu">
       {/* AVATAR */}
       <button
         onClick={() => setOpen((v) => !v)}
@@ -44,7 +44,7 @@ export const UserMenu = () => {
 
       {/* DROPDOWN */}
       {open && (
-        <div className="absolute right-0 top-10 z-[10000] mt-2 w-48 rounded-lg border border-gray-200 bg-gray-50 shadow-xl">
+        <div className="absolute right-0 top-10 mt-2 w-48 rounded-lg border border-gray-200 bg-gray-50 shadow-xl">
           <div className="border-b border-gray-700 px-4 py-3">
             <Heading.H4 noMargin>{username || "User"}</Heading.H4>
             {email && <p className="truncate text-sm text-gray-400">{email}</p>}
