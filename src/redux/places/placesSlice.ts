@@ -15,6 +15,7 @@ interface PlacesState {
   items: PlaceWithAuthor[];
   fetchStatus: "idle" | "loading" | "succeeded" | "failed";
   createStatus: "idle" | "loading" | "succeeded" | "failed";
+  updateStatus: "idle" | "loading" | "succeeded" | "failed";
   deleteStatus: "idle" | "loading" | "succeeded" | "failed";
   deletingId: number | null;
   error: string | null;
@@ -27,6 +28,7 @@ const initialState: PlacesState = {
   items: [],
   fetchStatus: "idle",
   createStatus: "idle",
+  updateStatus: "idle",
   deleteStatus: "idle",
   deletingId: null,
   error: null,
@@ -82,10 +84,19 @@ const placesSlice = createSlice({
 
       // UPDATE
       .addCase(updatePlace.fulfilled, (state, action) => {
+        state.updateStatus = "succeeded";
         const index = state.items.findIndex((p) => p.id === action.payload.id);
         if (index !== -1) {
           state.items[index] = action.payload;
         }
+      })
+      .addCase(updatePlace.pending, (state) => {
+        state.updateStatus = "loading";
+        state.error = null;
+      })
+      .addCase(updatePlace.rejected, (state, action) => {
+        state.updateStatus = "failed";
+        state.error = action.payload ?? "Create failed";
       })
 
       // DELETE

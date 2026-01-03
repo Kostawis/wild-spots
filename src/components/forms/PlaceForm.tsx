@@ -1,4 +1,4 @@
-import { find } from "lodash";
+import _, { find } from "lodash";
 import { FC, useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -73,7 +73,7 @@ export const PlaceForm: FC<PlaceForm> = ({ placeId }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, dirtyFields },
   } = useForm<FormTypes>({
     defaultValues: {
       name: place?.name || "",
@@ -107,6 +107,10 @@ export const PlaceForm: FC<PlaceForm> = ({ placeId }) => {
   };
 
   const onSubmit: SubmitHandler<FormTypes> = async (input) => {
+    const isSensitiveFieldsChanged = !_.isEmpty(
+      _.pick(dirtyFields, ["name", "description"]),
+    );
+
     try {
       if (place) {
         await dispatch(
@@ -117,7 +121,7 @@ export const PlaceForm: FC<PlaceForm> = ({ placeId }) => {
               description: input.description,
               category: input.category as Enums<"place_category">,
               ...input.location,
-              status: "pending",
+              status: isSensitiveFieldsChanged ? "pending" : place.status,
             },
           }),
         ).unwrap();
@@ -244,7 +248,10 @@ export const PlaceForm: FC<PlaceForm> = ({ placeId }) => {
         </Button>
         <Button
           type="submit"
-          isLoading={places.createStatus === "loading"}
+          isLoading={
+            places.createStatus === "loading" ||
+            placesStatuses.updateStatus === "loading"
+          }
           disabled={!isDirty}
         >
           Zapisz

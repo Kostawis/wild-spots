@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Tag } from "../../components/atoms/Tag";
 import Button from "../../components/Button";
 import { PlaceForm } from "../../components/forms/PlaceForm";
@@ -57,7 +58,8 @@ export const PlaceTail: FC<PlaceTailProps> = ({
 
   const handleDeletePlace = async () => {
     closeConfirmationModal();
-    await dispatch(deletePlace(placeId));
+    await dispatch(deletePlace(placeId)).unwrap();
+    toast.success("Miejscówka usunięta pomyślnie");
   };
 
   const handleEditPlace = () => {

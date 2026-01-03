@@ -5,6 +5,7 @@ import { RootState } from "../store";
 export const selectPlacesStatus = (state: RootState) => ({
   fetchStatus: state.places.fetchStatus,
   createStatus: state.places.createStatus,
+  updateStatus: state.places.updateStatus,
   deleteStatus: state.places.deleteStatus,
 });
 
