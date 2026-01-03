@@ -1,6 +1,5 @@
 import { Session } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
-import LoadingPage from "../pages/LoadingPage";
 import supabase from "../supabase";
 import { Tables } from "../supabase/database.types";
 
@@ -78,7 +77,7 @@ export const SessionProvider = ({ children }: Props) => {
   const isLoading = sessionLoading || (session && profileLoading);
 
   if (isLoading) {
-    return <LoadingPage />;
+    return null;
   }
 
   return (

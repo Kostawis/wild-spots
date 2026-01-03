@@ -23,13 +23,15 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
   isLastSnap = true,
 }) => {
   return (
-    <div
-      className={classNames("flex-1 px-4", {
-        "overflow-y-auto": isLastSnap,
-      })}
-    >
+    <div className="flex-1 px-4 pb-4 overflow-y-auto">
       <div className="flex justify-between">
-        <Heading.H2 noMargin className="line-clamp-2" title={place.name}>
+        <Heading.H2
+          noMargin
+          className={classNames({
+            "line-clamp-1": !isLastSnap,
+          })}
+          title={place.name}
+        >
           {place.name}
         </Heading.H2>
         <Button
@@ -40,7 +42,7 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
           <FontAwesomeIcon icon={faShareNodes} />
         </Button>
       </div>
-      <div className="-ml-1 mt-1 flex gap-x-1">
+      <div className="flex mt-1 -ml-1 gap-x-1">
         <Tag variant="category" value={place.category} />
         {place.terrain_types.map((type) => (
           <Tag key={type} variant="terrain" value={type} />
@@ -49,7 +51,7 @@ export const PlaceDetails: FC<PlaceDetailsType> = ({
 
       <HorizontalSeparator className="my-3" />
 
-      <div className="mb-2 flex items-center justify-between">
+      <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-x-2">
           <ProfileImage
             size="xs"
