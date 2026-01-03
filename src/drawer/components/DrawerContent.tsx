@@ -4,7 +4,7 @@ import Heading from "../../components/text/Heading";
 import { RootState } from "../../redux/store";
 
 export const DrawerContent = () => {
-  const { type } = useSelector((s: RootState) => s.drawer);
+  const { type, placeId } = useSelector((s: RootState) => s.drawer);
 
   switch (type) {
     // case "place-details":
@@ -12,10 +12,10 @@ export const DrawerContent = () => {
 
     case "create-place":
       return (
-        <div className="mb-4">
-          <Heading.H3 className="mb-4 mt-2 px-3">Dodaj miejscówkę</Heading.H3>
-          <PlaceForm />
-        </div>
+        <>
+          <Heading.H3 className="px-3 mt-2 mb-4">Dodaj miejscówkę</Heading.H3>
+          <PlaceForm placeId={placeId} />
+        </>
       );
 
     // case "edit-place":

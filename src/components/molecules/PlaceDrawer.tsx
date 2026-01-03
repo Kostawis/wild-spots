@@ -13,7 +13,7 @@ export const PlaceDrawer = () => {
   const currentPlace = useAppSelector(selectSelectedPlace);
   const { isMobile } = useWindowWidthState();
 
-  const snapPoints = ["180px", 1];
+  const snapPoints = ["200px", 1];
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
   const isLastSnap = snap === snapPoints[snapPoints.length - 1];
 
@@ -34,7 +34,7 @@ export const PlaceDrawer = () => {
         <Drawer.Content className="border-b-none fixed bottom-0 left-0 right-0 mx-[-1px] flex h-full max-h-[90%] flex-col rounded-t-[10px] border border-gray-200 bg-white">
           {/* Drag handle */}
           <div className="w-12 h-1 mx-auto my-3 bg-gray-300 rounded shrink-0" />
-          <Drawer.Title>Detale miejscówki</Drawer.Title>
+          <Drawer.Title className="hidden">Detale miejscówki</Drawer.Title>
           <PlaceDetails place={currentPlace} isLastSnap={isLastSnap} />
         </Drawer.Content>
       </Drawer.Portal>

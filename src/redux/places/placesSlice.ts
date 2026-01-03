@@ -20,7 +20,7 @@ interface PlacesState {
   error: string | null;
 
   // UI state
-  selectedPlaceId: string | number | null;
+  selectedPlaceId: string | number | null | undefined;
 }
 
 const initialState: PlacesState = {

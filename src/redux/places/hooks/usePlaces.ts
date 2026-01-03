@@ -16,13 +16,17 @@ export const usePlaces = () => {
   const places = useAppSelector(selectAllPlaces);
   const myPlaces = useAppSelector(selectMyPlaces(session?.user.id));
   const placesByStatus = useAppSelector(selectPlacesByStatus);
-  const { fetchStatus } = useAppSelector(selectPlacesStatus);
+  const placesStatuses = useAppSelector(selectPlacesStatus);
 
   useEffect(() => {
-    if (fetchStatus === "idle") {
+    if (placesStatuses.fetchStatus === "idle") {
       dispatch(fetchPlaces());
     }
-  }, [fetchStatus, dispatch]);
+  }, [placesStatuses.fetchStatus, dispatch]);
 
-  return { places, myPlaces, placesByStatus, fetchStatus };
+  useEffect(() => {
+    dispatch(fetchPlaces());
+  }, [session, dispatch]);
+
+  return { places, myPlaces, placesByStatus, placesStatuses };
 };

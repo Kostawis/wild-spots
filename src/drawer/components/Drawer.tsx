@@ -16,10 +16,13 @@ export const Drawer = ({ open, onOpenChange, children }: DrawerProps) => {
       disablePreventScroll={true}
     >
       <VaulDrawer.Portal>
-        <VaulDrawer.Overlay className="fixed inset-0 z-40 bg-black/40" />
-        <VaulDrawer.Content className="fixed inset-x-0 bottom-0 z-50 flex max-h-[90vh] flex-col rounded-t-2xl bg-white dark:bg-gray-900">
+        <VaulDrawer.Overlay className="fixed inset-0 bg-black/40" />
+        <VaulDrawer.Content className="border-b-none fixed bottom-0 left-0 right-0 mx-[-1px] flex h-full max-h-[90%] flex-col rounded-t-[10px] border border-gray-200 bg-white">
+          <VaulDrawer.Title className="hidden">
+            Edycja miejscówki
+          </VaulDrawer.Title>
           {/* <div className="mx-auto mt-2 h-1.5 w-12 rounded-full bg-gray-300" /> */}
-          {children}
+          <div className="flex-1 pb-4 mt-2 overflow-y-auto">{children}</div>
         </VaulDrawer.Content>
       </VaulDrawer.Portal>
     </VaulDrawer.Root>

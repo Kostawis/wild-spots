@@ -8,15 +8,33 @@ import { useModal } from "../../modal/hooks/useModal";
 import { clearCoordinates } from "../../redux/coordinates/placeCoordinatesSlice";
 import { closeDrawer } from "../../redux/drawer/drawerSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { usePlaces } from "../../redux/places/hooks/usePlaces";
+import { selectPlaceById } from "../../redux/places/placesSelectors";
 import { addPlace } from "../../redux/places/thunks/addPlace";
+import { updatePlace } from "../../redux/places/thunks/updatePlace";
 import { routes } from "../../router/routes";
 import { Enums } from "../../supabase/database.types";
 import { formInputRules } from "../../utils/formInputRules";
 import Button from "../Button";
 import { InformationBox } from "../InformationBox";
+import { MapInput } from "../inputs/MapInput";
 import Select, { SelectInputItems } from "../inputs/SelectInput";
 import TextareaInput from "../inputs/TextareaInput";
 import TextInput from "../inputs/TextInput";
+
+type PlaceForm = {
+  placeId?: number;
+};
+
+type FormTypes = {
+  name: string;
+  category: SelectInputItems["id"];
+  description: string;
+  location: {
+    lat: L.LatLng["lat"];
+    lng: L.LatLng["lng"];
+  };
+};
 
 const CATEGORY_TYPE_SELECT_ITEMS: SelectInputItems[] = [
   {
@@ -38,10 +56,12 @@ const CATEGORY_TYPE_SELECT_ITEMS: SelectInputItems[] = [
   },
 ];
 
-export const PlaceForm: FC = () => {
+export const PlaceForm: FC<PlaceForm> = ({ placeId }) => {
   const dispatch = useAppDispatch();
+  const { placesStatuses } = usePlaces();
   const { placeCoordinates, places } = useAppSelector((state) => state);
   const { isMobile } = useWindowWidthState();
+  const place = useAppSelector(selectPlaceById(placeId));
 
   const {
     openConfirmationModal,
@@ -54,15 +74,15 @@ export const PlaceForm: FC = () => {
     control,
     handleSubmit,
     formState: { errors, isDirty },
-  } = useForm<{
-    name: string;
-    category: SelectInputItems["id"];
-    description: string;
-  }>({
+  } = useForm<FormTypes>({
     defaultValues: {
-      name: "",
-      category: CATEGORY_TYPE_SELECT_ITEMS[0].id,
-      description: "",
+      name: place?.name || "",
+      category: place?.category || CATEGORY_TYPE_SELECT_ITEMS[0].id,
+      description: place?.description || "",
+      location: {
+        lat: place?.lat || placeCoordinates.coordinates?.lat,
+        lng: place?.lng || placeCoordinates.coordinates?.lng,
+      },
     },
   });
 
@@ -86,30 +106,41 @@ export const PlaceForm: FC = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<{
-    name: string;
-    category: SelectInputItems["id"];
-    description: string;
-  }> = async (input) => {
-    if (!placeCoordinates.coordinates) {
-      console.error("No coordinates set for the place.");
-      return;
-    }
-
+  const onSubmit: SubmitHandler<FormTypes> = async (input) => {
     try {
-      await dispatch(
-        addPlace({
-          name: input.name,
-          description: input.description,
-          category: input.category as Enums<"place_category">,
-          ...placeCoordinates.coordinates,
-        }),
-      ).unwrap();
+      if (place) {
+        await dispatch(
+          updatePlace({
+            id: place.id,
+            changes: {
+              name: input.name,
+              description: input.description,
+              category: input.category as Enums<"place_category">,
+              ...input.location,
+              status: "pending",
+            },
+          }),
+        ).unwrap();
+        toast.success(
+          "Miejscówka zaktualizowana pomyślnie! Oczekuje na zatwierdzenie.",
+        );
+      } else {
+        await dispatch(
+          addPlace({
+            name: input.name,
+            description: input.description,
+            category: input.category as Enums<"place_category">,
+            ...input.location,
+          }),
+        ).unwrap();
+        toast.success(
+          "Miejscówka dodana pomyślnie! Oczekuje na zatwierdzenie.",
+        );
+      }
 
       dispatch(clearCoordinates());
       closeMainModal();
       dispatch(closeDrawer());
-      toast.success("Miejscówka dodana pomyślnie! Oczekuje na zatwierdzenie.");
     } catch (error) {
       toast.error("Wystąpił błąd podczas dodawania miejscówki.");
       console.error("Error adding place:", error);
@@ -122,7 +153,15 @@ export const PlaceForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="overflow-y-auto px-3">
+      <div className="px-3 overflow-y-auto">
+        <Controller
+          name="location"
+          control={control}
+          render={({ field }) => (
+            <MapInput value={field.value} onChange={field.onChange} />
+          )}
+        />
+
         <Controller
           control={control}
           name="name"
@@ -131,22 +170,22 @@ export const PlaceForm: FC = () => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="Nazwa miejscówki"
+              label="Nazwa*"
               error={errors.name?.message}
               onChange={onChange}
               value={value}
               placeholder="Wpisz nazwę miejscówki..."
               className="min-w-full flex-[2] sm:min-w-[340px]"
+              loading={placesStatuses.fetchStatus === "loading"}
             />
           )}
         />
-
         <Controller
           control={control}
           name="category"
           render={({ field: { onChange, value } }) => (
             <Select
-              label="Kategoria miejscówki"
+              label="Kategoria*"
               error={errors.category?.message}
               onChange={onChange}
               value={
@@ -156,40 +195,50 @@ export const PlaceForm: FC = () => {
               placeholder="Wpisz opis dla swojego drona..."
               items={CATEGORY_TYPE_SELECT_ITEMS}
               className="flex-1"
+              loading={placesStatuses.fetchStatus === "loading"}
             />
           )}
         />
-
         <Controller
           control={control}
           name="description"
           render={({ field: { onChange, value } }) => (
             <TextareaInput
-              label="Opis miejscówki"
+              label="Opis"
               error={errors.description?.message}
               onChange={onChange}
               value={value}
               placeholder="Co wiesz na temat tego miejsca? Jakieś wskazówki dla innych użytkowników..."
+              loading={placesStatuses.fetchStatus === "loading"}
             />
           )}
         />
-
-        <InformationBox title="Ważne">
-          Po dodaniu miejscówki trafi ona do{" "}
-          <span className="font-bold">administracji</span> w oczekiwaniu na
-          zatwierdzenie. Po zaakceptowaniu będzie widoczna dla wszystkich.
-          Status sprawdzisz w zakładce{" "}
-          <Link
-            to={routes.dashboard.places}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-bold underline"
-          >
-            Moje miejscówki
-          </Link>
-        </InformationBox>
+        {place ? (
+          <InformationBox title="Ważne">
+            Po zaktualizowaniu{" "}
+            <span className="font-bold">nazwy lub opisu</span> miejscówki zmieni
+            status i trafi ponownie do{" "}
+            <span className="font-bold">administracji</span> w oczekiwaniu na
+            zatwierdzenie.
+          </InformationBox>
+        ) : (
+          <InformationBox title="Ważne">
+            Po dodaniu miejscówki trafi ona do{" "}
+            <span className="font-bold">administracji</span> w oczekiwaniu na
+            zatwierdzenie. Po zaakceptowaniu będzie widoczna dla wszystkich.
+            Status sprawdzisz w zakładce{" "}
+            <Link
+              to={routes.dashboard.places}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold underline"
+            >
+              Moje miejscówki
+            </Link>
+          </InformationBox>
+        )}
       </div>
-      <div className="mt-2 flex justify-end gap-x-3 px-3">
+      <div className="flex justify-end px-3 mt-2 gap-x-3">
         <Button color="transparent" onClick={onClose}>
           Zamknij
         </Button>

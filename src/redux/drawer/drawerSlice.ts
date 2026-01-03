@@ -5,12 +5,13 @@ export type DrawerType = "place-details" | "create-place" | "edit-place" | null;
 type DrawerState = {
   open: boolean;
   type: DrawerType;
-  payload?: unknown;
+  placeId?: number;
 };
 
 const initialState: DrawerState = {
   open: false,
   type: null,
+  placeId: undefined,
 };
 
 const drawerSlice = createSlice({
@@ -20,12 +21,12 @@ const drawerSlice = createSlice({
     openDrawer: (state, action) => {
       state.open = true;
       state.type = action.payload.type;
-      state.payload = action.payload.payload;
+      state.placeId = action.payload.placeId;
     },
     closeDrawer: (state) => {
       state.open = false;
       state.type = null;
-      state.payload = undefined;
+      state.placeId = undefined;
     },
   },
 });

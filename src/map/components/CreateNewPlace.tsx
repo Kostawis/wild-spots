@@ -28,6 +28,14 @@ export const CreateNewPlace = () => {
         alert("Żeby dodać miejscówkę musisz być zalogowany");
         return;
       }
+      if (clickContext) return;
+
+      dispatch(
+        setCreateCoordinates({
+          lat: e.latlng.lat,
+          lng: e.latlng.lng,
+        }),
+      );
 
       setClickContext({
         point: e.containerPoint,
@@ -41,13 +49,7 @@ export const CreateNewPlace = () => {
       clickContext={clickContext}
       onClose={() => setClickContext(null)}
       onAddPlace={() => {
-        dispatch(
-          setCreateCoordinates({
-            lat: clickContext.latlng.lat,
-            lng: clickContext.latlng.lng,
-          }),
-        );
-
+        setClickContext(null);
         if (isMobile) {
           dispatch(
             openDrawer({

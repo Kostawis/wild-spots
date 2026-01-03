@@ -33,6 +33,11 @@ export const selectPlacesByTerrain =
   (category: Enums<"place_category">) => (state: RootState) =>
     state.places.items.filter((p) => p.category === category);
 
+export const selectPlaceById = (placeId: number | undefined) =>
+  createSelector([selectAllPlaces], ({ items: places }) => {
+    return places.find((p) => p.id === placeId);
+  });
+
 // UI selectors
 export const selectSelectedPlace = (state: RootState) =>
   state.places.items.find((p) => p.id == state.places.selectedPlaceId) ?? null;
